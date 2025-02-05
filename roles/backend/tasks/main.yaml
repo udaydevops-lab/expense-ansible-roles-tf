@@ -24,11 +24,10 @@
     tasks_from: app-pre-req
 
 - name: Install npm dependencies
-  become: true
-  become_user: expense
   command: npm install
   args:
     chdir: /app
+  become: yes
 
 - name: copy backend service
   ansible.builtin.template:
