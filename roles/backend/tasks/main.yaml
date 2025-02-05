@@ -10,13 +10,7 @@
     state: installed
   loop:
   - nodejs
-  - npm
-  - mysql12
-
-- name: Ensure /app directory exists
-  ansible.builtin.file:
-    path: /app
-    state: directory
+  - mysql
 
 - name: create expense user
   ansible.builtin.user:
@@ -29,12 +23,12 @@
     name: common
     tasks_from: app-pre-req
 
-- name: install npm dependencies
-  tags:
-  - deployment
-  ansible.builtin.command: npm install
-  args:
-    chdir: /app
+# - name: install npm dependencies
+#   tags:
+#   - deployment
+#   ansible.builtin.command: npm install
+#   args:
+#     chdir: /app
 
 - name: copy backend service
   ansible.builtin.template:
@@ -44,11 +38,6 @@
 - name: daemon reload
   ansible.builtin.systemd_service:
     daemon_reload: true
-
-- name: start backend service before enabling
-  ansible.builtin.service:
-    name: backend
-    state: started
 
 - name: Enable backend service
   ansible.builtin.service:
@@ -71,7 +60,7 @@
     state: import
     name: all
 
-- name: restart backend service
+- name: start and enable backend service
   tags: 
   - deployment
   ansible.builtin.service:
