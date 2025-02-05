@@ -23,12 +23,14 @@
     name: common
     tasks_from: app-pre-req
 
-# - name: install npm dependencies
-#   tags:
-#   - deployment
-#   ansible.builtin.command: npm install
-#   args:
-#     chdir: /app
+- name: install npm dependencies
+  tags:
+  - deployment
+  ansible.builtin.command: npm install
+  args:
+    chdir: /app
+  become: yes
+  become_user: expense # Run as expense user
 
 - name: copy backend service
   ansible.builtin.template:
