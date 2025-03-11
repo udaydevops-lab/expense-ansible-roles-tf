@@ -3,3 +3,4 @@ login_host: db-prod.prajai.online
 login_password: ExpenseApp@1
 DB_HOST: db-prod.prajai.online
 BACKEND_API_URL: backend.app-prod.prajai.online
+nexus_url: nexus.prajai.online:8081
